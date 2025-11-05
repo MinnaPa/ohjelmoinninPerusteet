@@ -60,11 +60,6 @@ def main():
     for otsikko, arvo in varaus.items():
         print(f"{otsikko+':':<13} {arvo}")
 
-
-if __name__ == "__main__":
-    main()
-
-
     # Kokeile näitä
     #print(varaus.split('|'))
     #varausId = varaus.split('|')[0]
