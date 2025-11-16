@@ -33,7 +33,6 @@ def hae_paiva(varaus):
     print(f"Päivämäärä: {paiva.strftime('%d.%m.%Y')}")
 
 def hae_aloitusaika(varaus):
-    # Oletetaan muodoksi 10.00
     aika = varaus[3].replace(".", ":")
     print(f"Aloitusaika: {aika}")
 
@@ -54,8 +53,9 @@ def laske_kokonaishinta(varaus):
     print(f"Kokonaishinta: {hinta_str} €")
 
 def hae_maksettu(varaus):
-    # Muutetaan kyllä/ei → Kyllä/Ei (alkukirjain isoksi)
-    maksettu = varaus[6].strip().capitalize()
+    arvo = varaus[6].strip().lower()
+    #muutetaan True/False → Kyllä/Ei hyödynnetään if-else silmukkaa
+    maksettu = "Kyllä" if arvo in ("true", "kyllä", "1") else "Ei"
     print(f"Maksettu: {maksettu}")
 
 def hae_kohde(varaus):
@@ -71,18 +71,16 @@ def hae_sahkoposti(varaus):
     print(f"Sähköposti: {sposti}")
 
 
-def main():
-    # Maaritellaan tiedoston nimi suoraan koodissa
-    varaukset = "varaukset.txt"
+def main(rivi_index=0):
+    tiedosto = "varaukset.txt"
 
-    # Avataan tiedosto, luetaan ja splitataan sisalto
-    with open(varaukset, "r", encoding="utf-8") as f:
-        varaus = f.read().strip()
-        varaus = varaus.split('|')
+    with open(tiedosto, "r", encoding="utf-8") as f:
+        rivit = f.readlines()
 
-    # Toteuta loput funktio hae_varaaja(varaus) mukaisesti
-    # Luotavat funktiota tekevat tietotyyppien muunnoksen
-    # ja tulostavat esimerkkitulosteen mukaisesti
+    rivit = [r.strip() for r in rivit if r.strip()]
+
+    varausrivi = rivit[rivi_index]
+    varaus = varausrivi.split('|')
 
     hae_varausnumero(varaus)
     hae_varaaja(varaus)
@@ -96,5 +94,7 @@ def main():
     hae_puhelin(varaus)
     hae_sahkoposti(varaus)
 
+
 if __name__ == "__main__":
-    main()
+    valinta = int(input("Anna rivinumero (0 = 1. varaus): "))
+    main(valinta)
