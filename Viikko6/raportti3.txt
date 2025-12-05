@@ -1,0 +1,3 @@
+--- VUOSIRAPORTTI 2025 ---
+Kokonaiskulutus: 7396.84 kWh
+Mittauksia: 8040 kpl
